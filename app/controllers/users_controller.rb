@@ -1,18 +1,18 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate, only: [:login, :create]
-#  before_action :set_user, only: [:show, :update, :destroy]
+
 
 
   # POST /login
-def login
-  credentials = user_credentials
-  token = User.login(credentials[:email], credentials[:password])
-  if token
-    render json: { token: token }
-  else
-    head :unauthorized
+  def login
+    credentials = user_credentials
+    token = User.login(credentials[:email], credentials[:password])
+    if token
+      render json: { token: token }
+    else
+      head :unauthorized
+    end
   end
-end
 
   # GET /users
   # GET /users.json
@@ -25,7 +25,7 @@ end
   # GET /users/1
   # GET /users/1.json
   def show
-    render json: @user
+    # render json: @user
   end
 
   # POST /users
@@ -66,12 +66,5 @@ end
       params.require(:credentials).permit(:email,
                                           :password,
                                           :password_confirmation)
-
-    def set_user
-      @user = User.find(params[:id])
     end
-
-    def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation)
-    end
-end
+  end

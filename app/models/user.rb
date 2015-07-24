@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   def self.login(email, password)
     user = find_by email: email
     user = user.authenticate password if user
-    user.login passowrd if user
+    user.login password if user
   end
 
   def login(password)
