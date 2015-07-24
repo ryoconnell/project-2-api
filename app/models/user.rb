@@ -8,8 +8,11 @@ class User < ActiveRecord::Base
   def self.login(email, password)
     user = find_by email: email
     user = user.authenticate password if user
-    user.set_token && user.save! if user
-    user.token if user
+    user.login passowrd if user
+  end
+
+  def login(password)
+    authenticate(password) && set_token && save! && token
   end
 
   private
